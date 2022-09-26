@@ -1,0 +1,7 @@
+{
+    "plugins": [
+        ["wildcard", {
+            "exts" : ["js", "json"]
+        }]
+    ]
+}
