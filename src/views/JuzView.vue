@@ -41,8 +41,10 @@ export default {
     }
   },
   methods: {
-    //Compares the user choices against the provided answers array
-    //If the user choice matches any of the accepted answers, the choice is considered correct
+    /**
+     * Compares the user choices against the provided answers array
+     * If the user choice matches any of the accepted answers, the choice is considered correct
+     */
     evaluate() {
       //Loop over all questions in the json file.
       for (let i=0; i<this.questions.length; i++) {
@@ -62,6 +64,9 @@ export default {
           this.wrongAnswers.push(i);
       }
     },
+    /**
+     * Updates the choices array with sura verse
+     */
     updateChoices(index, type, event) {
       if (typeof this.choices[index] === 'undefined') {
         Vue.set(this.choices, index, {sura: '', verse: ''});
