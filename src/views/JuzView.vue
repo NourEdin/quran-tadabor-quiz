@@ -26,6 +26,7 @@ export default {
         this.juzMeta = juzsMeta[toParams.id -1 ]; // -1 To fix the index
         this.choices = [];
         this.wrongAnswers = [];
+        this.showResults = false;
       }
     )
     
@@ -37,7 +38,8 @@ export default {
       juzMeta: juzsMeta[this.$route.params.id - 1], // -1 to fix the index
       surasMeta,
       choices: [],
-      wrongAnswers: [] //Holds indicies of questions with wrong answers
+      wrongAnswers: [], //Holds indicies of questions with wrong answers
+      showResults: false,
     }
   },
   methods: {
@@ -46,6 +48,7 @@ export default {
      * If the user choice matches any of the accepted answers, the choice is considered correct
      */
     evaluate() {
+      this.wrongAnswers = [];
       //Loop over all questions in the json file.
       for (let i=0; i<this.questions.length; i++) {
         let answers = this.questions[i].answers;
@@ -63,6 +66,9 @@ export default {
         if (!correct && !this.wrongAnswers.includes(i)) 
           this.wrongAnswers.push(i);
       }
+      this.showResults = true;
+      setTimeout(function(){window.scrollTo(0, document.body.scrollHeight);}, 50);
+      
     },
     /**
      * Updates the choices array with sura verse
@@ -74,6 +80,17 @@ export default {
       this.choices[index][type] = event.target.value;
     },
   },
+  computed: {
+    wrongScore() {
+      return this.wrongAnswers.length;
+    },
+    totalScore() {
+      return this.questions.length;
+    },
+    correctScore() {
+      return this.totalScore - this.wrongScore;
+    }
+  }
 
 }
 </script>
@@ -93,15 +110,20 @@ export default {
             <option>اختر رقم الآية</option>
             <option v-for="n in surasMeta[choices[index].sura-1]['ayaCount']" :key="n">{{n}}</option>
           </select>
+          <p class="correct-answer" v-if="showResults">{{q.answerText}}</p>
         </td>
       </tr>
     </table>
     <br />
-    <button class="btn" @click="evaluate()">تقييم</button>
+    <p v-if="showResults" class="result">حصلت على {{correctScore}} إجابة صحيحة من أصل {{totalScore}} سؤال</p>
+    <button class="evaluate-btn btn" @click="evaluate()">تقييم</button>
 
   </div>
 </template>
 <style scoped>
+  body {
+    direction: rtl;
+  }
   .container {
     max-width: 900px;
     margin: auto;
@@ -149,5 +171,17 @@ export default {
   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
+}
+.correct-answer {
+  border: solid 1px #3aa503;
+  padding: 10px;
+  max-width: 700px;
+  margin: 10px auto;
+  border-radius: 10px;
+  background: #ccf5b3;
+}
+.danger .correct-answer {
+  border: solid 1px red;
+  background: #f5b3c8;
 }
 </style>
