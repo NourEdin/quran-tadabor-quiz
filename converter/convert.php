@@ -47,7 +47,7 @@ for ($i=1; $i<=$max; $i++) {
             }
 
             //Replaces hashes (#) with <strong></strong>
-            $answerText = preg_replace("/(#(.*)#)/", "<strong>$2</strong>", $row[2]);
+            $answerText = preg_replace("/(#(.*?)#)/", "<strong>$2</strong>", $row[2]);
 
             $questions[] = [
                 "text" => $row[0],
