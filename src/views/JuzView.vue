@@ -120,7 +120,7 @@ export default {
 
   </div>
 </template>
-<style scoped>
+<style >
   body {
     direction: rtl;
   }
@@ -180,8 +180,14 @@ export default {
   border-radius: 10px;
   background: #ccf5b3;
 }
+.correct-answer strong {
+  color: #2c8100;
+}
 .danger .correct-answer {
   border: solid 1px red;
   background: #f5b3c8;
+}
+.danger .correct-answer strong {
+  color: #720d0d;
 }
 </style>
