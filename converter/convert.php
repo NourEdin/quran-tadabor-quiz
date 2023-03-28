@@ -60,5 +60,5 @@ for ($i=1; $i<=$max; $i++) {
         echo "Couldn't find $filepath" . PHP_EOL;
     }
     file_put_contents($destpath, json_encode($questions));
-    break; //testing
+
 }
