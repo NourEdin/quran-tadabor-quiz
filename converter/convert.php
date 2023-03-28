@@ -18,9 +18,9 @@ $min = 1;
 $max = 30;
 
 for ($i=1; $i<=$max; $i++) {
-    $filename = "Cleaning of tadabor sheet - $i.tsv";
-    $filepath = __DIR__ . "/tsv/$filename";
-    $destpath = __DIR__ . "/json/$i.json";
+    $filename = "Cleaning of Tadabor sheet v2 - $i.tsv";
+    $filepath = __DIR__ . "/tsv/v2/$filename";
+    $destpath = __DIR__ . "/json/v2/$i.json";
     $questions = [];
     if (file_exists($filepath)) {
         echo $filename . PHP_EOL;
@@ -46,13 +46,19 @@ for ($i=1; $i<=$max; $i++) {
                 }
             }
 
+            //Replaces hashes (#) with <strong></strong>
+            $answerText = preg_replace("/(#(.*)#)/", "<strong>$2</strong>", $row[2]);
+
             $questions[] = [
                 "text" => $row[0],
-                "answerText" => $row[2],
+                "answerText" => $answerText,
                 "answers" => $answers
             ];
         }
         fclose($pointer);
+    } else {
+        echo "Couldn't find $filepath" . PHP_EOL;
     }
     file_put_contents($destpath, json_encode($questions));
+    break; //testing
 }

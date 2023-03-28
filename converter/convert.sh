@@ -1,0 +1,1 @@
+docker run --rm -it -v $(pwd):/app -w /app  php:8.2 php convert.php
