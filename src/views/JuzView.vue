@@ -1,6 +1,6 @@
 <script>
   import Vue from "vue";
-import * as juzs from "../../converter/json/";
+import * as juzs from "../../converter/json/v2/";
 import juzsMeta from "../../converter/meta/juzs.json";
 import surasMeta from "../../converter/meta/suras.json";
 
@@ -110,7 +110,7 @@ export default {
             <option>اختر رقم الآية</option>
             <option v-for="n in surasMeta[choices[index].sura-1]['ayaCount']" :key="n">{{n}}</option>
           </select>
-          <p class="correct-answer" v-if="showResults">{{q.answerText}}</p>
+          <p class="correct-answer" v-if="showResults" v-html="q.answerText"></p>
         </td>
       </tr>
     </table>
@@ -120,7 +120,7 @@ export default {
 
   </div>
 </template>
-<style scoped>
+<style >
   body {
     direction: rtl;
   }
@@ -180,8 +180,14 @@ export default {
   border-radius: 10px;
   background: #ccf5b3;
 }
+.correct-answer strong {
+  color: #2c8100;
+}
 .danger .correct-answer {
   border: solid 1px red;
   background: #f5b3c8;
+}
+.danger .correct-answer strong {
+  color: #720d0d;
 }
 </style>
