@@ -18,7 +18,7 @@ $min = 1;
 $max = 30;
 
 for ($i=1; $i<=$max; $i++) {
-    $filename = "Cleaning of Tadabor sheet v2 - $i.tsv";
+    $filename = "Tadabor App - $i.tsv";
     $filepath = __DIR__ . "/tsv/v2/$filename";
     $destpath = __DIR__ . "/json/v2/$i.json";
     $questions = [];
